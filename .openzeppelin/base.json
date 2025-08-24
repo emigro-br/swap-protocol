@@ -1,0 +1,765 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0x82E4Ec6b47B5dE1444F7D28BB5881914bF8C6a9E",
+      "txHash": "0x51378b952253efce051d917cae720176ad04ccc9d1ca27b32e15ef7c17c2301f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xA9030f5Eda7Ad15bC50f0A4Cb837579740F02c42",
+      "txHash": "0xe05abff32fd6773c66430c1bea564b11be73c6daeaddb500d30665ec65024625",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xB99c12E67a62135FC8C6bfEbEc25Acf375B11eF8",
+      "txHash": "0xa068e0805f021efeb4c07f25612fd20e78c0390d19a5d0c6c11d51613f0e04c3",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6b0e33f464dD297cf997DfA96D694aFC153e7F6F",
+      "txHash": "0x8962199afeecc61542c066e1473ac47736f099bd1ac778718d9f7fcb85de388d",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "d896972679242dde48e89c4036ddf6b62857d09c8ebd1593b36fd28c22bb095d": {
+      "address": "0x2DfD22cbCe5da00A1E382719119266a968e674FD",
+      "txHash": "0xe9f914c508943526dbefb896509ee4545dfa5b365c6fdd52ae49c105fca745ab",
+      "layout": {
+        "solcVersion": "0.8.22",
+        "storage": [
+          {
+            "label": "adapterForPair",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_address))",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:14"
+          },
+          {
+            "label": "adapterForPath",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:15"
+          },
+          {
+            "label": "intents",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_bytes32,t_struct(IntentMetadata)1319_storage)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:16"
+          },
+          {
+            "label": "defaultDeadline",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:23"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)73_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)13_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)163_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_address))": {
+            "label": "mapping(address => mapping(address => address))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(IntentMetadata)1319_storage)": {
+            "label": "mapping(bytes32 => struct EmigroRouter.IntentMetadata)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(IntentMetadata)1319_storage": {
+            "label": "struct EmigroRouter.IntentMetadata",
+            "members": [
+              {
+                "label": "refundTo",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "used",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin\\contracts-upgradeable\\utils\\ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "f1fcba2b560b137daf616eccb368b3c1597d9592193426aff9dcd7f77979a4ef": {
+      "address": "0x4B3AE94bdAd7480F8B73C2e4C7fEe422e9953077",
+      "txHash": "0x3c2bbdb6d577045cc4eae9fa4fb8e6ed1bcfab4bdc78f78476fd5a66fa14875d",
+      "layout": {
+        "solcVersion": "0.8.22",
+        "storage": [
+          {
+            "label": "adapterForPath",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:14"
+          },
+          {
+            "label": "intents",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_struct(IntentMetadata)1323_storage)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:15"
+          },
+          {
+            "label": "feeExempt",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:16"
+          },
+          {
+            "label": "defaultDeadline",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:18"
+          },
+          {
+            "label": "feeBps",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:19"
+          },
+          {
+            "label": "feeReceiver",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:20"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)73_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)13_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)163_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(IntentMetadata)1323_storage)": {
+            "label": "mapping(bytes32 => struct EmigroRouter.IntentMetadata)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(IntentMetadata)1323_storage": {
+            "label": "struct EmigroRouter.IntentMetadata",
+            "members": [
+              {
+                "label": "refundTo",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "used",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin\\contracts-upgradeable\\utils\\ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "ccc73494be0357bf845ed0fb9699aa6e1d4b588f1d7310627479caca3b5ea6be": {
+      "address": "0x06c40564C7ba3e0ae89bd7e36dF07f294Ac06658",
+      "txHash": "0x47b38968c6c92aaf9805955a049c8bc6cf5c8035ac241ec3888359a576a6a210",
+      "layout": {
+        "solcVersion": "0.8.22",
+        "storage": [
+          {
+            "label": "adapterForPath",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:14"
+          },
+          {
+            "label": "intents",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_struct(IntentMetadata)1327_storage)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:15"
+          },
+          {
+            "label": "feeExempt",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:16"
+          },
+          {
+            "label": "approvedAdapters",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:17"
+          },
+          {
+            "label": "defaultDeadline",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:19"
+          },
+          {
+            "label": "feeBps",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:20"
+          },
+          {
+            "label": "feeReceiver",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_address",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:21"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)73_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)13_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)163_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(IntentMetadata)1327_storage)": {
+            "label": "mapping(bytes32 => struct EmigroRouter.IntentMetadata)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(IntentMetadata)1327_storage": {
+            "label": "struct EmigroRouter.IntentMetadata",
+            "members": [
+              {
+                "label": "refundTo",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "used",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin\\contracts-upgradeable\\utils\\ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "b87ceede7ebc02c3341cb57e4de58bf9a0e1c5a6a020c3a90c037aa63c6df86b": {
+      "address": "0xbFdbBf79411DB89e2872DE82F6a8B2E0674A9125",
+      "txHash": "0xdb8896b290560acdfb03dea7f191b798b47fbb95425ca11674ecc714390113bc",
+      "layout": {
+        "solcVersion": "0.8.22",
+        "storage": [
+          {
+            "label": "adapterForPath",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:14"
+          },
+          {
+            "label": "feeExempt",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:15"
+          },
+          {
+            "label": "approvedAdapters",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:16"
+          },
+          {
+            "label": "defaultDeadline",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:18"
+          },
+          {
+            "label": "feeBps",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:19"
+          },
+          {
+            "label": "feeReceiver",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address",
+            "contract": "EmigroRouter",
+            "src": "contracts\\EmigroRouter.sol:20"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)73_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)13_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)163_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin\\contracts-upgradeable\\utils\\ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

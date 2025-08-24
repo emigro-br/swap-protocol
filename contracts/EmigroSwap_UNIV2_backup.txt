@@ -1,0 +1,207 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.22;
+
+import "@uniswap/swap-router-contracts/contracts/interfaces/IV3SwapRouter.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+interface IWETH {
+    function deposit() external payable;
+    function withdraw(uint256) external;
+}
+
+contract EmigroSwap is ReentrancyGuard, Ownable {
+    using SafeERC20 for IERC20;
+
+    IV3SwapRouter public uniswapRouter;
+    address public immutable WETH;
+    bool public isPaused = false;
+
+    event RouterUpdated(address newRouter);
+    event SwapExactInput(
+        address indexed from,
+        address tokenIn,
+        address tokenOut,
+        uint24 fee,
+        uint256 amountIn,
+        uint256 amountOut,
+        address recipient
+    );
+    event SwapExactOutput(
+        address indexed from,
+        address tokenIn,
+        address tokenOut,
+        uint24 fee,
+        uint256 amountInUsed,
+        uint256 amountOut,
+        address recipient
+    );
+    event WrapETH(address indexed sender, uint256 amount);
+    event UnwrapETH(address indexed sender, uint256 amount);
+    event Error(string reason);
+    event EmergencyPause(bool isPaused);
+    event TokensRescued(address token, address to, uint256 amount);
+    event ETHRescued(address to, uint256 amount);
+    event ETHReceived(address sender, uint256 amount);
+
+    modifier whenNotPaused() {
+        require(!isPaused, "Contract is paused");
+        _;
+    }
+
+    constructor(address _router, address _weth) Ownable(msg.sender) {
+        require(_router != address(0), "Router address is zero");
+        require(_weth != address(0), "WETH address is zero");
+        uniswapRouter = IV3SwapRouter(_router);
+        WETH = _weth;
+    }
+
+    function updateRouter(address newRouter) external onlyOwner {
+        require(newRouter != address(0), "Invalid router address");
+        uniswapRouter = IV3SwapRouter(newRouter);
+        emit RouterUpdated(newRouter);
+    }
+
+    function pause(bool value) external onlyOwner {
+        isPaused = value;
+        emit EmergencyPause(value);
+    }
+
+    function swapExactInput(
+        address tokenIn,
+        address tokenOut,
+        uint24 fee,
+        uint256 amountIn,
+        uint256 minAmountOut,
+        address recipient
+    ) external nonReentrant whenNotPaused {
+        require(amountIn > 0, "Amount must be > 0");
+        require(recipient != address(0), "Invalid recipient");
+
+        emit Error("swapExactInput: start");
+
+        IERC20(tokenIn).safeTransferFrom(msg.sender, address(this), amountIn);
+        emit Error("Transfer complete.");
+
+        IERC20(tokenIn).approve(address(uniswapRouter), 0);
+        IERC20(tokenIn).approve(address(uniswapRouter), amountIn);
+        emit Error("Approval complete.");
+
+        IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter.ExactInputSingleParams({
+            tokenIn: tokenIn,
+            tokenOut: tokenOut,
+            fee: fee,
+            recipient: recipient,
+            amountIn: amountIn,
+            amountOutMinimum: minAmountOut,
+            sqrtPriceLimitX96: 0
+        });
+
+        try uniswapRouter.exactInputSingle(params) returns (uint256 amountOut) {
+            emit SwapExactInput(msg.sender, tokenIn, tokenOut, fee, amountIn, amountOut, recipient);
+            emit Error("Swap succeeded.");
+        } catch Error(string memory reason) {
+            emit Error(string(abi.encodePacked("Swap failed: ", reason)));
+            revert(string(abi.encodePacked("Swap failed: ", reason)));
+        } catch (bytes memory lowLevelData) {
+            emit Error("Unknown low-level swap failure.");
+            emit Error(toHex(lowLevelData));
+            revert("Swap failed: unknown low-level error");
+        }
+    }
+
+    function swapExactOutput(
+        address tokenIn,
+        address tokenOut,
+        uint24 fee,
+        uint256 maxAmountIn,
+        uint256 amountOut,
+        address recipient
+    ) external nonReentrant whenNotPaused {
+        require(amountOut > 0, "Output must be > 0");
+        require(maxAmountIn > 0, "Max input must be > 0");
+        require(recipient != address(0), "Invalid recipient");
+
+        emit Error("swapExactOutput: start");
+
+        IERC20(tokenIn).safeTransferFrom(msg.sender, address(this), maxAmountIn);
+        emit Error("Transfer complete.");
+
+        IERC20(tokenIn).approve(address(uniswapRouter), 0);
+        IERC20(tokenIn).approve(address(uniswapRouter), maxAmountIn);
+        emit Error("Approval complete.");
+
+        IV3SwapRouter.ExactOutputSingleParams memory params = IV3SwapRouter.ExactOutputSingleParams({
+            tokenIn: tokenIn,
+            tokenOut: tokenOut,
+            fee: fee,
+            recipient: recipient,
+            amountOut: amountOut,
+            amountInMaximum: maxAmountIn,
+            sqrtPriceLimitX96: 0
+        });
+
+        try uniswapRouter.exactOutputSingle(params) returns (uint256 amountInUsed) {
+            if (amountInUsed < maxAmountIn) {
+                IERC20(tokenIn).safeTransfer(msg.sender, maxAmountIn - amountInUsed);
+            }
+            emit SwapExactOutput(msg.sender, tokenIn, tokenOut, fee, amountInUsed, amountOut, recipient);
+            emit Error("Swap succeeded.");
+        } catch Error(string memory reason) {
+            emit Error(string(abi.encodePacked("Swap failed: ", reason)));
+            revert(string(abi.encodePacked("Swap failed: ", reason)));
+        } catch (bytes memory lowLevelData) {
+            emit Error("Low-level swap failure.");
+            emit Error(toHex(lowLevelData));
+            revert("Swap failed: unknown low-level error");
+        }
+    }
+
+    function wrapETH() external payable nonReentrant whenNotPaused {
+        require(msg.value > 0, "No ETH sent");
+        IWETH(WETH).deposit{value: msg.value}();
+        IERC20(WETH).safeTransfer(msg.sender, msg.value);
+        emit WrapETH(msg.sender, msg.value);
+    }
+
+    function unwrapETH(uint256 amount) external nonReentrant whenNotPaused {
+        require(amount > 0, "Amount must be > 0");
+        IERC20(WETH).safeTransferFrom(msg.sender, address(this), amount);
+        IWETH(WETH).withdraw(amount);
+        (bool sent, ) = msg.sender.call{value: amount}("");
+        require(sent, "ETH transfer failed");
+        emit UnwrapETH(msg.sender, amount);
+    }
+
+    function rescueTokens(address token, address to, uint256 amount) external onlyOwner {
+        require(to != address(0), "Invalid recipient");
+        IERC20(token).safeTransfer(to, amount);
+        emit TokensRescued(token, to, amount);
+    }
+
+    function rescueETH(address to, uint256 amount) external onlyOwner {
+        require(to != address(0), "Invalid recipient");
+        require(address(this).balance >= amount, "Insufficient balance");
+        (bool success, ) = to.call{value: amount}("");
+        require(success, "ETH transfer failed");
+        emit ETHRescued(to, amount);
+    }
+
+    receive() external payable {
+        emit ETHReceived(msg.sender, msg.value);
+    }
+
+    function toHex(bytes memory data) internal pure returns (string memory) {
+        bytes16 hexChars = "0123456789abcdef";
+        bytes memory str = new bytes(2 + data.length * 2);
+        str[0] = "0";
+        str[1] = "x";
+        for (uint i = 0; i < data.length; i++) {
+            str[2 + i * 2] = hexChars[uint8(data[i] >> 4)];
+            str[3 + i * 2] = hexChars[uint8(data[i] & 0x0f)];
+        }
+        return string(str);
+    }
+}

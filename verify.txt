@@ -1,0 +1,49 @@
+C:\Users\ehkan\Desktop\Emigro\swapcontract>npx hardhat compile
+C:\Users\ehkan\Desktop\Emigro\swapcontract>npx hardhat run scripts/deploy-emigro-router.js --network base
+✅ EmigroRouter (Proxy) deployed at: 0x6b0e33f464dD297cf997DfA96D694aFC153e7F6F
+📦 Implementation contract deployed at: 0xbFdbBf79411DB89e2872DE82F6a8B2E0674A9125
+
+✅ UniswapV2Adapter deployed: 0x1b9042f6e862E20bb653f5C1EAd8AB679eE73FAB
+✅ UniswapV3Adapter deployed: 0x4fBAA929d8eB386fABd1144c88F2Fd63A39379EA
+✅ AerodromeAdapter deployed: 0x1a9b2b13e4d70c78406C55A6aa27c6bd9B962470
+✅ AerodromeSlipstreamAdapter deployed at: 0xf536887fD203fD9780d95EaAA66B742aaA94f1ae
+🎉 All components deployed. No adapter registration needed.
+
+
+
+Verify EmigroRouter
+npx hardhat verify --network base 0x6b0e33f464dD297cf997DfA96D694aFC153e7F6F
+
+
+
+
+https://basescan.org/address/0x8B8A7fc999E7EB8C665Ed71F8Ea80e8cF0f24fb6#code
+
+
+
+
+
+npx hardhat verify --network base DEPLOYED_CONTRACT_ADDRESS "routerAddress" "wethAddress"
+
+
+npx hardhat verify --network base 0x71a1e224A95a5b1446790D60d1f5D289fCc7F755 "0x2626664c2603336E57B271c5C0b26F421741e481" "0x4200000000000000000000000000000000000006"
+
+
+
+
+npx hardhat run scripts/test-swap-aero-slipstream3.js --network base
+npx hardhat run scripts/test-swap-aero-slipstream4.js --network base     (TO USDC)
+
+
+
+
+
+
+
+
+npx hardhat run scripts/test-swap-aero.js --network base
+
+
+npx hardhat run scripts/deploy-emigro-router.js --network base
+
+npx hardhat run scripts/deploy-univ2-adapter.js --network base
